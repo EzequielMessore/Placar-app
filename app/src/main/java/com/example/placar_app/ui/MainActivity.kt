@@ -26,7 +26,9 @@ class MainActivity : AppCompatActivity() {
 
         findPartidaEstado()
         buttonCadastrar()
+
     }
+
     private fun findPartidaEstado(){
         viewModel.findPartidaStatement(binding.rvMain.id).observe(this){ state ->
             when(state){
@@ -40,6 +42,7 @@ class MainActivity : AppCompatActivity() {
                 }
                 State.Wait -> binding.srlListPartida.isRefreshing = true
             }
+
         }
     }
     private fun buttonCadastrar(){
@@ -48,6 +51,5 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
     }
-
 
 }
