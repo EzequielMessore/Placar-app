@@ -11,9 +11,7 @@ import com.example.placar_app.databinding.ActivityMainBinding
 import com.google.android.material.snackbar.Snackbar
 
 class MainActivity : AppCompatActivity() {
-
     private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
-
     private val viewModel by viewModels<PartidaViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -21,12 +19,10 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.rvMain.layoutManager = LinearLayoutManager(this)
-
         binding.srlListPartida.setOnRefreshListener { findPartidaEstado() }
 
         findPartidaEstado()
         buttonCadastrar()
-
     }
 
     private fun findPartidaEstado(){

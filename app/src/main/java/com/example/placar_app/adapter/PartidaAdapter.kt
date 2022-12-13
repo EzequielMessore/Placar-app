@@ -1,13 +1,19 @@
 package com.example.placar_app.adapter
 
-
+import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import androidx.cardview.widget.CardView
+import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.example.placar_app.R
 import com.example.placar_app.databinding.MainItemBinding
 import com.example.placar_app.domain.ListPartida
 import com.example.placar_app.domain.StatusPartida
+import com.example.placar_app.ui.CadastrarPartida
+import kotlinx.coroutines.flow.internal.NoOpContinuation.context
 
 class PartidaAdapter (private val dataSet: List<ListPartida>) : RecyclerView.Adapter<PartidaAdapter.ViewHolder>() {
 
@@ -33,6 +39,13 @@ class PartidaAdapter (private val dataSet: List<ListPartida>) : RecyclerView.Ada
         override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
             val item = dataSet[position]
             viewHolder.bind(item)
+
+            viewHolder.itemView.setOnClickListener(View.OnClickListener {
+                fun onClick(view: View){
+                    val intent = Intent(this@PartidaAdapter, CadastrarPartida::class.java)
+                    startActivity(intent)
+                }
+            })
 
         }
 
