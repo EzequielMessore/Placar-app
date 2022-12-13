@@ -16,6 +16,8 @@ import com.example.placar_app.ui.CadastrarPartida
 import kotlinx.coroutines.flow.internal.NoOpContinuation.context
 
 class PartidaAdapter (private val dataSet: List<ListPartida>) : RecyclerView.Adapter<PartidaAdapter.ViewHolder>() {
+    
+    private val onClickListener: () -> Unit = {}
 
     class ViewHolder(private val binding: MainItemBinding) : RecyclerView.ViewHolder(binding.root) {
 
@@ -26,31 +28,27 @@ class PartidaAdapter (private val dataSet: List<ListPartida>) : RecyclerView.Ada
                 val stsPartida =
                     if (StatusPartida.AGUARDANDO == item.status) R.color.primary_100 else R.color.fundo_claro
                 card.setBackgroundColor(stsPartida.toInt())
-
             }
-
-        }
-
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-            val binding = MainItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-            return ViewHolder(binding)
-        }
-
-        override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
-            val item = dataSet[position]
-            viewHolder.bind(item)
-
-            viewHolder.itemView.setOnClickListener(View.OnClickListener {
-                fun onClick(view: View){
-                    val intent = Intent(this@PartidaAdapter, CadastrarPartida::class.java)
-                    startActivity(intent)
-                }
-            })
-
-        }
-
-        override fun getItemCount() = dataSet.size
 
     }
 
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        val binding = MainItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return ViewHolder(binding)
+    }
 
+    override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
+        val item = dataSet[position]
+        viewHolder.bind(item)
+
+        viewHolder.itemView.setOnClickListener {
+            onClickListener()
+        }
+    }
+
+    override fun getItemCount() = dataSet.size
+    
+    fun setOnClickListener(listener: () -> Unit) {
+        this.onClickListener = listener
+    }
+}
